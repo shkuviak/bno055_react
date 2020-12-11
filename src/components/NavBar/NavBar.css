@@ -1,0 +1,31 @@
+#NavBar {
+    width: 21%;
+    display: inline-block;
+}
+
+#NavBar h1 {
+    font-size: 2.6rem;
+    color: #6A788D;
+    padding: 0 2rem;
+}
+
+#NavBar img {
+    width: 100%;
+}
+
+#NavBar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#NavBar ul li {
+    color: #8C98AA;
+    padding: 1.68em 2em;
+    font-weight: 600;
+    margin: 0;
+}
+
+#NavBar ul li.selected {
+    background-color: #E0E6EE;
+}
