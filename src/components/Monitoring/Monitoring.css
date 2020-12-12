@@ -1,0 +1,12 @@
+.monitoring {
+    display: inline-block;
+    vertical-align: top;
+    width: 44.6%;
+}
+
+.monitoring h1 {
+    font-size: 2.1rem;
+    color: #6A788D;
+    padding: 2em 1.65em 0 1.65em;
+
+}

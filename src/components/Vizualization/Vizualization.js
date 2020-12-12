@@ -5,7 +5,7 @@ export default function Vizualization(props) {
     return (
         <div className="vizualization">
             <h1>VISUALIZATION</h1>
-            <DBody angle={props.angle}/>
+            <DBody bonesPositions={props.bonesPositions}/>
         </div>
     )
 }

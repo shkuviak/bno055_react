@@ -6,7 +6,7 @@ import './3dBody.css';
 
 export default function DBody(props) { 
     const [leftLeg, setLeftLeg] = useState();
-    const [righttLeg, setRightLeg] = useState();
+    const [rightLeg, setRightLeg] = useState();
 
     useEffect(() => {
         let camera, scene, renderer, clock, rightArm, domToRender;
@@ -94,9 +94,14 @@ export default function DBody(props) {
 
     useEffect(() => {
         console.log("move leg")
-        if(leftLeg)
-            leftLeg.rotation.x = props.angle / 900;
-    }, [props.angle]);
+        moveBone(leftLeg, 'leftLeg')
+        moveBone(rightLeg, 'rightLeg')
+    }, [props.bonesPositions]);
+
+    const moveBone = function(boneObj, name) {
+        if(boneObj && props.bonesPositions.filter(x => x.bone == name).length > 0)
+        boneObj.rotation.x = props.bonesPositions.filter(x => x.bone == name)[0].pitch / 900;
+    }
 
     return(
         <div id="renderer"></div>
