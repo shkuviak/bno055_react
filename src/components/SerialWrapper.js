@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import Vizualization from './Vizualization/Vizualization'
 import Monitoring from './Monitoring/Monitoring'
 
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "/";
+
 export default function SerialWrapper() {
     const [bonesPositions, setBonesPositions] = useState([{
         bone: "leftLeg",
@@ -11,27 +14,48 @@ export default function SerialWrapper() {
         roll: 0
     }]);
 
-    useEffect(() => {
-        let interval = setInterval(() => {
-            setBonesPositions([{
-                bone: "leftLeg",
-                pitch:  Math.random() * (2000),
-                yaw: 0,
-                roll: 0
-            }, {
-                bone: "rightLeg",
-                pitch: Math.random() * (2000),
-                yaw: 0,
-                roll: 0
-            }]);
-        }, 100);
+    const [lowRatePos, setLowRatePos] = useState([{
+        bone: "leftLeg",
+        pitch: 0,
+        yaw: 0,
+        roll: 0
+    }]);
 
-        return () => clearInterval(interval);
-      }, []);
+    useEffect(() => {
+        const socket = socketIOClient(ENDPOINT);
+        socket.on('serial data', data => {
+            let jsData = JSON.parse(data);
+            let d = [];
+            d[0] = jsData[0];
+            d[0]['bone'] = "leftLeg";
+
+            setBonesPositions(d);            
+        })
+
+        return () => socket.disconnect();
+    }, []);
+
+    // useEffect(() => {
+    //     let interval = setInterval(() => {
+    //         setBonesPositions([{
+    //             bone: "leftLeg",
+    //             pitch:  Math.random() * (2000),
+    //             yaw: 0,
+    //             roll: 0
+    //         }, {
+    //             bone: "rightLeg",
+    //             pitch: Math.random() * (2000),
+    //             yaw: 0,
+    //             roll: 0
+    //         }]);
+    //     }, 1000);
+
+    //     return () => clearInterval(interval);
+    //   }, []);
 
     return (
         <>
-        <Monitoring bonesPositions={bonesPositions}/>
+        {/* <Monitoring bonesPositions={lowRatePos}/> */}
         <Vizualization bonesPositions={bonesPositions}/>
         </>
     )
