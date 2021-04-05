@@ -5,8 +5,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import './3dBody.css';
 
 export default function DBody(props) { 
+    // lower leg
     const [leftLeg, setLeftLeg] = useState();
     const [rightLeg, setRightLeg] = useState();
+
+    // upper leg
+    const [leftUpLeg, setLeftUpLeg] = useState();
+    const [rightUpLeg, setRightUpLeg] = useState();
 
     useEffect(() => {
         let camera, scene, renderer, clock, rightArm, domToRender;
@@ -34,8 +39,13 @@ export default function DBody(props) {
                 const model = gltf.scene;
                 
                 rightArm = model.getObjectByName( 'mixamorigRightArm' );
+                // Lower leg
                 setLeftLeg(model.getObjectByName('mixamorigLeftLeg'));
                 setRightLeg(model.getObjectByName('mixamorigRightLeg'));
+
+                // Upper leg
+                setLeftUpLeg(model.getObjectByName('mixamorigLeftUpLeg'));
+                setRightUpLeg(model.getObjectByName('mixamorigRightUpLeg'));
         
                 scene.add( model );
                 
@@ -82,8 +92,8 @@ export default function DBody(props) {
             
             }
             
-            if (leftLeg) {
-                //leftLeg.rotation.x = 1517 /900;
+            if (leftUpLeg) {
+                // leftUpLeg.rotation.x = 1517 /900;
             }
         
             renderer.render( scene, camera );
@@ -96,6 +106,8 @@ export default function DBody(props) {
         console.log("move leg")
         moveBone(leftLeg, 'leftLeg')
         moveBone(rightLeg, 'rightLeg')
+        moveBone(leftUpLeg, "leftUpLeg")
+        moveBone(rightUpLeg, "rightUpLeg")
     }, [props.bonesPositions]);
 
     const moveBone = function(boneObj, name) {

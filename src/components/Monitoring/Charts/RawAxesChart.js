@@ -9,7 +9,7 @@ export default function RawAxesChart(props) {
         responsive: true,
         title: {
             display: true,
-            text: 'Chart.js Line Chart'
+            text: 'Data'
         },
         tooltips: {
             enabled: false

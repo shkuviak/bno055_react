@@ -12,6 +12,11 @@ export default function SerialWrapper() {
         pitch: 0,
         yaw: 0,
         roll: 0
+    }, {
+        bone: "leftUpLeg",
+        pitch: 0,
+        yaw: 0,
+        roll: 0
     }]);
 
     const [lowRatePos, setLowRatePos] = useState([{
@@ -28,6 +33,15 @@ export default function SerialWrapper() {
             let d = [];
             d[0] = jsData[0];
             d[0]['bone'] = "leftLeg";
+
+            d[1] = jsData[1];
+            d[1]['bone'] = "rightLeg";
+
+            d[2] = jsData[2];
+            d[2]['bone'] = "leftUpLeg";
+
+            d[3] = jsData[3];
+            d[3]['bone'] = "rightUpLeg";
 
             setBonesPositions(d);            
         })
@@ -55,7 +69,7 @@ export default function SerialWrapper() {
 
     return (
         <>
-        {/* <Monitoring bonesPositions={lowRatePos}/> */}
+        <Monitoring bonesPositions={lowRatePos}/>
         <Vizualization bonesPositions={bonesPositions}/>
         </>
     )
