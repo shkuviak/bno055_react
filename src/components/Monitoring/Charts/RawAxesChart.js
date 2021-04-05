@@ -9,7 +9,7 @@ export default function RawAxesChart(props) {
         responsive: true,
         title: {
             display: true,
-            text: 'Data'
+            text: props.title
         },
         tooltips: {
             enabled: false
@@ -51,9 +51,9 @@ export default function RawAxesChart(props) {
 
     const data = {
         datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'red',
-            borderColor: 'red',
+            label: 'Angle (degres)',
+            backgroundColor: '#FFA9A9',
+            borderColor: '#FFA9A9',
             data: [],
             fill: false,
             lineTension: 0
@@ -62,9 +62,9 @@ export default function RawAxesChart(props) {
     
     useEffect(() => {
         if (refChart.current.chartInstance != undefined && props.data != undefined) {
-            refChart.current.chartInstance.data.datasets[0].data.push({ x: Date.now(), y: props.data.data / 60});
+            refChart.current.chartInstance.data.datasets[0].data.push({ x: Date.now(), y: props.data / 60});
             // refChart.current.chartInstance.data.datasets[0].data = [{ x: Date.now(), y: props.data.data}];
-            refChart.current.chartInstance.update();
+            // refChart.current.chartInstance.update();
         }
     }, [props.data]);
 

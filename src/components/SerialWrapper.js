@@ -26,6 +26,8 @@ export default function SerialWrapper() {
         roll: 0
     }]);
 
+    const [counter, setCounter] = useState(0);
+
     useEffect(() => {
         const socket = socketIOClient(ENDPOINT);
         socket.on('serial data', data => {
@@ -35,15 +37,15 @@ export default function SerialWrapper() {
             d[0]['bone'] = "leftLeg";
 
             d[1] = jsData[1];
-            d[1]['bone'] = "rightLeg";
+            d[1]['bone'] = "leftUpLeg";
 
-            d[2] = jsData[2];
-            d[2]['bone'] = "leftUpLeg";
+            // d[2] = jsData[2];
+            // d[2]['bone'] = "leftUpLeg";
 
-            d[3] = jsData[3];
-            d[3]['bone'] = "rightUpLeg";
+            // d[3] = jsData[3];
+            // d[3]['bone'] = "rightUpLeg";
 
-            setBonesPositions(d);            
+            setBonesPositions(d); 
         })
 
         return () => socket.disconnect();
@@ -51,17 +53,19 @@ export default function SerialWrapper() {
 
     // useEffect(() => {
     //     let interval = setInterval(() => {
-    //         setBonesPositions([{
+    //         setLowRatePos([{
     //             bone: "leftLeg",
-    //             pitch:  Math.random() * (2000),
-    //             yaw: 0,
-    //             roll: 0
+    //             pitch:  bonesPositions[0].pitch,
+    //             yaw: bonesPositions[0].yaw,
+    //             roll: bonesPositions[0].roll
     //         }, {
-    //             bone: "rightLeg",
-    //             pitch: Math.random() * (2000),
-    //             yaw: 0,
-    //             roll: 0
+    //             bone: "LeftUpLeg",
+    //             pitch: bonesPositions[1].pitch,
+    //             yaw: bonesPositions[1].yaw,
+    //             roll: bonesPositions[1].roll
     //         }]);
+
+    //         console.log(bonesPositions);
     //     }, 1000);
 
     //     return () => clearInterval(interval);
@@ -69,7 +73,7 @@ export default function SerialWrapper() {
 
     return (
         <>
-        <Monitoring bonesPositions={lowRatePos}/>
+        <Monitoring bonesPosition={bonesPositions}/>
         <Vizualization bonesPositions={bonesPositions}/>
         </>
     )
